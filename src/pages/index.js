@@ -1,3 +1,50 @@
+// Setup Alchemy
+//import { Network, Alchemy } from 'alchemy-sdk';
+
+//components
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import InformationImage from "./components/InformationImage";
+import TeamMembers from "./components/TeamMembers";
+import Footer from "./components/Footer";
+
+export default function Home() {
+
+  /*
+  //Alchemy
+  const settings = {
+    apiKey: "uTmt0PJ0hMVMGtYnL0mh4gLKqhfbQbwK",
+    network: Network.ETH_SEPOLIA,
+  };
+  
+  const alchemy = new Alchemy(settings);
+
+  const onLoad = async () => {
+    let address = "0xB65705B5319D030A5a03171d408F85463658fFeB"
+    let balance = await alchemy.core.getBalance(address, "latest")
+
+    //hex to decimal
+    const { Utils } = require("alchemy-sdk");
+    let formattedEther = Utils.formatEther(balance);
+    console.log(formattedEther);
+  }
+  
+  onLoad()
+*/
+  return(
+    <>
+      <div className="flex flex-col h-screen justify-between">
+      <Navbar />
+      <Hero />
+      <InformationImage />
+      <TeamMembers />
+      <Footer />
+      </div>
+    </>
+  )
+}
+
+/*
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 
@@ -122,3 +169,4 @@ export default function Home() {
     </main>
   )
 }
+*/
