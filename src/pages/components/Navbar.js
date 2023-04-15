@@ -3,6 +3,9 @@ import Link from "next/link";
 
 import { useState } from "react";
 
+//components
+import ConnectButton from "./ConnectButton";
+
 const Navbar = () => {
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -31,6 +34,7 @@ const Navbar = () => {
                         <Link href="/Games" className="text-white hover:text-[#FDD36A] font-bold text-xl px-2">
                             Games
                         </Link>
+                        <ConnectButton />
                     </div>
 
                     {/*Menu Button*/}
@@ -71,6 +75,7 @@ const Navbar = () => {
                     {isMobileMenuOpen && (
                     <div className="sm:hidden">
                         <div className="px-2 pt-2 pb-3">
+                            <ConnectButton />
                             <Link href="/Games" className="px-5 py-1 block rounded-md hover:text-[#FDD36A] hover:bg-gray-700 text-white font-bold text-xl px-2 transition duration-600 ease-in-out">
                                 Games
                             </Link>
