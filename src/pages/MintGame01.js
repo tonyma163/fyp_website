@@ -1,10 +1,52 @@
+import * as React from "react";
 import Image from "next/image";
 
 //components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
+//Wagmi
+import { useSignMessage } from "wagmi";
+
 const MintGame01 = () => {
+    /*
+    async function Mint01() {
+        console.log("Mint");
+    }
+    */
+
+    //Wagmi
+    //Sign message
+    //https://wagmi.sh/react/hooks/useSignMessage
+    const [message, setMessage] = React.useState("")
+
+    const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({
+        message,
+
+        onSuccess(data) {
+            console.log('Success', data)
+            // Alert
+            alert("[Success] "+data);
+        },
+        onError(error) {
+            console.log('Error', error)
+            // Alert
+            alert("[Error] "+error);
+        },
+        onMutate(args) {
+            console.log('Mutate', args)
+        },
+        onSettled(data, error) {
+            console.log('Settled', { data, error })
+        },
+        
+    })
+
+    function ConfirmMintMessage() {
+        setMessage("Are you sure to purchase [NFT-NAME] NFT-TYPE ?");
+        signMessage()
+    }
+
     return(
         <>
             <div className="flex flex-col h-screen justify-between">
@@ -26,7 +68,9 @@ const MintGame01 = () => {
                         <h1 className="text-[#112D4E] text-3xl font-bold">Type1</h1>
                         
                         <div className="pt-3 flex justify-around">
-                        <button type="button" className="font-bold py-3 px-8 rounded-2xl bg-[#112D4E] text-[#F9F7F7] hover:bg-[#FDD36A] hover:text-[#112D4E] transition-colors duration-300">
+                        <button 
+                            onClick={ConfirmMintMessage}
+                            type="button" className="font-bold py-3 px-8 rounded-2xl bg-[#112D4E] text-[#F9F7F7] hover:bg-[#FDD36A] hover:text-[#112D4E] transition-colors duration-300">
                                 Mint
                         </button>
                         </div>

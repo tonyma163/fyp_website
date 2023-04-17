@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useWeb3Modal } from "@web3modal/react";
 //Wagmi
 import { useAccount, useDisconnect } from "wagmi";
+import { useNetwork, useSwitchNetwork } from 'wagmi'
 
 const ConnectButton = () => {
 
@@ -52,66 +53,98 @@ const ConnectButton = () => {
           // Alert
           alert("Address Copied!");
         }
-      }
+    }
+
+    //Wagmi
+    //SwitchNetwork
+    //https://wagmi.sh/react/hooks/useSwitchNetwork
+    const { chain } = useNetwork();
+    const { chains, error, isLoading, pendingChainId, switchNetwork } = useSwitchNetwork();
     
     return(
         <>
+          <div className="group flex flex-row sm:flex-col sm:justify-end gap-3 sm:gap-0 pl-5 sm:pl-0">
+            {mounted && !isConnected &&
+              <button
+                onClick={onClick}
+                className="py-1 px-5 bg-[#FDD36A] rounded-md text-[#112D4E] font-bold hover:bg-[#112D4E] hover:text-white transition duration-600 ease-in-out"
+                disabled={loading}>
+                  {label}
+              </button>
+            }
             
-            <div className="group flex flex-row sm:flex-col sm:justify-end gap-3 sm:gap-0 pl-5 sm:pl-0">
-                <button
-                  onClick={onClick}
-                  className="py-1 px-5 bg-[#FDD36A] rounded-md text-[#112D4E] font-bold hover:bg-[#112D4E] hover:text-white transition duration-600 ease-in-out"
-                  disabled={loading}>
-                    {loading ? "Loading..." : label}
-                </button>
-
-                {/*Wallet, Disconnect Button*/}
-                <div className="hidden sm:block">
-                <div className="hidden group-hover:block absolute h-auto">
-                    <ul className="py-1">
-                        <li className="py-1">
-                            {mounted && isConnected && (
+            
+            {mounted && isConnected && (
+            <>
+              
+              {chains.map((x) => (
+                <div key={x.id}>
+                  {/*Connect && WrongChain*/}
+                  <button
+                    onClick={() => switchNetwork?.(x.id)}
+                    className="py-1 px-5 bg-[#FDD36A] rounded-md text-[#112D4E] font-bold hover:bg-[#112D4E] hover:text-white transition duration-600 ease-in-out"
+                    disabled={loading}
+                    hidden={x.id === chain?.id}>
+                      {x.id !== chain?.id && "Wrong Network"}
+                      {isLoading && pendingChainId === x.id && ' (switching)'}
+                      {x.id === chain?.id && !isLoading && label}
+                  </button>
+                  
+                  {/*Connect && CorrectChain*/}
+                  {x.id === chain?.id &&
+                  <>
+                  <div className="group flex flex-row sm:flex-col sm:justify-end gap-3 sm:gap-0 pl-5 sm:pl-0">
+                    <button
+                      onClick={onClick}
+                      className="py-1 px-5 bg-[#FDD36A] rounded-md text-[#112D4E] font-bold hover:bg-[#112D4E] hover:text-white transition duration-600 ease-in-out"
+                    >
+                      {loading ? "Loading..." : label}
+                    </button>
+                    
+                    {/*Desktop*/}
+                    <div className="hidden sm:block">
+                      <div className="hidden group-hover:block absolute h-auto">
+                        <ul className="py-1">
+                          <li className="py-1">
                             <button
                               className="py-1 px-7 bg-[#112D4E] rounded-md text-white font-bold hover:bg-[#FDD36A] hover:bg-[#FDD36A] hover:text-[#112D4E] transition duration-600 ease-in-out">
                                 Wallet
                             </button>
-                            )}
-                        </li>
-
-                        <li className="py-1">
-                            {mounted && isConnected && (
+                          </li>
+                          
+                          <li className="py-1">
                             <button
                               onClick={Disconnect}
                               className="py-1 px-3 bg-[#112D4E] rounded-md text-white font-bold hover:bg-[#FDD36A] hover:text-[#112D4E] transition duration-600 ease-in-out">
                                 Disconnect
                             </button>
-                            )}
-                        </li>
-                    </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    {/*Mobile*/}
+                    <div className="sm:hidden">
+                      <button
+                        className="py-1 px-5 bg-[#112D4E] rounded-md px-3 text-white font-bold hover:bg-[#FDD36A] hover:text-[#112D4E] transition duration-600 ease-in-out">
+                          Wallet
+                      </button>
+                    </div>
+                    
+                    <div className="sm:hidden">
+                      <button
+                        onClick={Disconnect}
+                        className="py-1 px-5 bg-[#112D4E] rounded-md px-3 text-white font-bold hover:bg-[#FDD36A] hover:text-[#112D4E] transition duration-600 ease-in-out">
+                          Disconnect
+                      </button>
+                    </div>
+                  </div>
+                  </>}
                 </div>
-                </div>
-
-                <div className="sm:hidden">
-                            {mounted && isConnected && (
-                            <button
-                              className="py-1 px-5 bg-[#112D4E] rounded-md px-3 text-white font-bold hover:bg-[#FDD36A] hover:text-[#112D4E] transition duration-600 ease-in-out">
-                                Wallet
-                            </button>
-                            )}
-                </div>
-                <div className="sm:hidden">
-                            {mounted && isConnected && (
-                            <button
-                              onClick={Disconnect}
-                              className="py-1 px-5 bg-[#112D4E] rounded-md px-3 text-white font-bold hover:bg-[#FDD36A] hover:text-[#112D4E] transition duration-600 ease-in-out">
-                                Disconnect
-                            </button>
-                            )}
-                </div>
-                
-
-            </div>
-            
+              ))}
+            </>
+            )}
+          </div>
         </>
     )
 }
