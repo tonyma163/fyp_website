@@ -75,8 +75,10 @@ const Navbar = () => {
                     {isMobileMenuOpen && (
                     <div className="sm:hidden">
                         <div className="px-2 pt-2 pb-3">
+                            <div className="pb-2 ">
                             <ConnectButton />
-                            <Link href="/Games" className="px-5 py-1 block rounded-md hover:text-[#FDD36A] hover:bg-gray-700 text-white font-bold text-xl px-2 transition duration-600 ease-in-out">
+                            </div>
+                            <Link href="/Games" className="px-5 py-1 block rounded-md hover:text-[#FDD36A] hover:bg-gray-700 text-white font-bold text-xl transition duration-600 ease-in-out">
                                 Games
                             </Link>
                         </div>
