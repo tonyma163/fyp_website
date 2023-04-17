@@ -30,8 +30,8 @@ const Navbar = () => {
                     </div>
 
                     {/*Desktop Menu*/}
-                    <div className="hidden sm:flex ">
-                        <Link href="/Games" className="text-white hover:text-[#FDD36A] font-bold text-xl px-2">
+                    <div className="hidden sm:flex gap-3">
+                        <Link href="/Games" className="block rounded-md bg-blue-950 hover:bg-gray-700 text-white hover:text-[#FDD36A] font-bold text-xl px-2">
                             Games
                         </Link>
                         <ConnectButton />
