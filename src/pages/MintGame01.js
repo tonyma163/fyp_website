@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 //components
@@ -9,12 +10,6 @@ import Footer from "./components/Footer";
 import { useSignMessage } from "wagmi";
 
 const MintGame01 = () => {
-    /*
-    async function Mint01() {
-        console.log("Mint");
-    }
-    */
-
     //Wagmi
     //Sign message
     //https://wagmi.sh/react/hooks/useSignMessage
@@ -47,7 +42,45 @@ const MintGame01 = () => {
         signMessage()
     }
 
-    return(
+    //parameters
+    const [images, setImages] = useState([]);
+
+    //ipfs images
+    const imageType1CID = "QmeA9xHhanwo5xBv72XczoxaCfjN4ZqqCabFm4ayHNfjVN";
+    const imageType2CID = "QmcM3VfQfBSNmUZrvMNTbMtFzpwY44tb7xy58t3z3YeCHu";
+
+    const imageCIDs = [
+        imageType1CID,
+        imageType2CID,
+    ];
+
+    //
+    useEffect(() => {
+
+        const fetchImages = async () => {
+            try {
+                const res = await Promise.all(imageCIDs.map((CID)=> fetch("https://cloudflare-ipfs.com/ipfs/"+CID)));
+                const imageBlobs = await Promise.all(res.map((res) => res.blob()));
+                const imageObjectURLs = imageBlobs.map((blob) => URL.createObjectURL(blob));
+                setImages(imageObjectURLs);
+            } catch (err) {
+                console.log("ERROR: ",err);
+            }
+        };
+
+        //
+        fetchImages();
+    }, []);
+
+    const Mint01 = () => {
+        console.log("Mint 01");
+    }
+
+    const Mint02 = () => {
+        console.log("Mint 02");
+    }
+
+    return( 
         <>
             <div className="flex flex-col h-screen justify-between">
             <Navbar />
@@ -55,49 +88,30 @@ const MintGame01 = () => {
             <p className="py-3 px-10 text-center font-bold italic">INSTRUCTION: Each account only could own ONE type of NFTs</p>
 
             <div className="lg:flex lg:justify-evenly">
-            <div className="py-10 flex justify-center">
-                <div className="bg-[#DBE2EF] max-w-sm shadow-lg rounded-3xl overflow-hidden">
-                    <Image
-                      src="/images/oldbro.jpg"
-                      width={960}
-                      height={540}
+                {images.map((imageSrc, index) => (
+                    <div key={index} className="py-10 flex justify-center">
+                        <div className="bg-[#DBE2EF] max-w-sm shadow-lg rounded-3xl overflow-hidden">
+                            <Image
+                                src={imageSrc}
+                                alt=""
+                                width={960}
+                                height={540}
+                                priority
+                            />
 
-                      priority
-                      />
-                    <div className="py-3 text-center">
-                        <h1 className="text-[#112D4E] text-3xl font-bold">Type1</h1>
-                        
-                        <div className="pt-3 flex justify-around">
-                        <button 
-                            onClick={ConfirmMintMessage}
-                            type="button" className="font-bold py-3 px-8 rounded-2xl bg-[#112D4E] text-[#F9F7F7] hover:bg-[#FDD36A] hover:text-[#112D4E] transition-colors duration-300">
-                                Mint
-                        </button>
+                            <div className="py-3 text-center">
+                                <h1 className="text-[#112D4E] text-3xl font-bold">Type1</h1>
+                                    <div className="pt-3 flex justify-around">
+                                        <button 
+                                            onClick={index === 0 ? Mint01 : Mint02}
+                                                type="button" className="font-bold py-3 px-8 rounded-2xl bg-[#112D4E] text-[#F9F7F7] hover:bg-[#FDD36A] hover:text-[#112D4E] transition-colors duration-300">
+                                                Mint
+                                        </button>
+                                    </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div className="py-10 flex justify-center">
-                <div className="bg-[#DBE2EF] max-w-sm shadow-lg rounded-3xl overflow-hidden">
-                    <Image
-                      src="/images/oldbro.jpg"
-                      width={960}
-                      height={540}
-
-                      priority
-                      />
-                    <div className="py-3 text-center">
-                        <h1 className="text-[#112D4E] text-3xl font-bold">Type2</h1>
-                        
-                        <div className="pt-3 flex justify-around">
-                        <button type="button" className="font-bold py-3 px-8 rounded-2xl bg-[#112D4E] text-[#F9F7F7] hover:bg-[#FDD36A] hover:text-[#112D4E] transition-colors duration-300">
-                                Mint
-                        </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                ))}
             </div>
 
             <Footer />
