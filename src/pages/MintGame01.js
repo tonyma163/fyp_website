@@ -5,9 +5,12 @@ import Image from "next/image";
 //components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ConnectButton from "./components/ConnectButton";
 
 //Wagmi
 import { useSignMessage } from "wagmi";
+import { useAccount } from "wagmi";
+import { useNetwork, useSwitchNetwork } from 'wagmi'
 
 const MintGame01 = () => {
     //Wagmi
@@ -41,6 +44,13 @@ const MintGame01 = () => {
         setMessage("Are you sure to purchase [NFT-NAME] NFT-TYPE ?");
         signMessage()
     }
+
+    //Wagmi
+    //Check Connected?
+    const { isConnected } = useAccount();
+    const { chain } = useNetwork();
+    const { chains } = useSwitchNetwork();
+
 
     //parameters
     const [images, setImages] = useState([]);
@@ -102,11 +112,22 @@ const MintGame01 = () => {
                             <div className="py-3 text-center">
                                 <h1 className="text-[#112D4E] text-3xl font-bold">Type1</h1>
                                     <div className="pt-3 flex justify-around">
-                                        <button 
-                                            onClick={index === 0 ? Mint01 : Mint02}
-                                                type="button" className="font-bold py-3 px-8 rounded-2xl bg-[#112D4E] text-[#F9F7F7] hover:bg-[#FDD36A] hover:text-[#112D4E] transition-colors duration-300">
-                                                Mint
-                                        </button>
+
+                                        {!isConnected && <ConnectButton />}
+                                        {isConnected && chains.map((x) => (
+                                            <div key={x.id}>
+                                                {x.id !== chain?.id && <ConnectButton />}
+
+                                                {x.id === chain?.id &&
+                                                    <button 
+                                                        onClick={index === 0 ? Mint01 : Mint02}
+                                                        type="button" className="font-bold py-3 px-8 rounded-2xl bg-[#112D4E] text-[#F9F7F7] hover:bg-[#FDD36A] hover:text-[#112D4E] transition-colors duration-300">
+                                                            Mint
+                                                    </button>
+                                                }
+                                            </div>
+                                        ))}
+
                                     </div>
                             </div>
                         </div>

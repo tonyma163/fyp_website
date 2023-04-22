@@ -85,8 +85,8 @@ const ConnectButton = () => {
                     className="py-1 px-5 bg-[#FDD36A] rounded-md text-[#112D4E] font-bold hover:bg-[#112D4E] hover:text-white transition duration-600 ease-in-out"
                     disabled={loading}
                     hidden={x.id === chain?.id}>
-                      {x.id !== chain?.id && "Wrong Network"}
-                      {isLoading && pendingChainId === x.id && ' (switching)'}
+                      {x.id !== chain?.id && !isLoading && "Wrong Network"}
+                      {isLoading && pendingChainId === x.id && 'Switching'}
                       {x.id === chain?.id && !isLoading && label}
                   </button>
                   
