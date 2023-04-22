@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 //Web3Modal
 import { useWeb3Modal } from "@web3modal/react";
@@ -106,10 +107,11 @@ const ConnectButton = () => {
                       <div className="hidden group-hover:block absolute h-auto">
                         <ul className="py-1">
                           <li className="py-1">
-                            <button
-                              className="py-1 px-7 bg-[#112D4E] rounded-md text-white font-bold hover:bg-[#FDD36A] hover:bg-[#FDD36A] hover:text-[#112D4E] transition duration-600 ease-in-out">
+                            <Link
+                              href="/Wallet"
+                              className="py-1.5 px-5 bg-[#112D4E] rounded-md text-white font-bold hover:bg-[#FDD36A] hover:text-[#112D4E] transition duration-600 ease-in-out">
                                 Wallet
-                            </button>
+                            </Link>
                           </li>
                           
                           <li className="py-1">
@@ -124,17 +126,18 @@ const ConnectButton = () => {
                     </div>
                     
                     {/*Mobile*/}
-                    <div className="sm:hidden">
-                      <button
-                        className="py-1 px-5 bg-[#112D4E] rounded-md px-3 text-white font-bold hover:bg-[#FDD36A] hover:text-[#112D4E] transition duration-600 ease-in-out">
+                    <div className="sm:hidden pt-1">
+                      <Link
+                        href="/Wallet"
+                        className="py-1.5 px-5 bg-[#112D4E] rounded-md text-white font-bold hover:bg-[#FDD36A] hover:text-[#112D4E] transition duration-600 ease-in-out">
                           Wallet
-                      </button>
+                      </Link>
                     </div>
                     
                     <div className="sm:hidden">
                       <button
                         onClick={Disconnect}
-                        className="py-1 px-5 bg-[#112D4E] rounded-md px-3 text-white font-bold hover:bg-[#FDD36A] hover:text-[#112D4E] transition duration-600 ease-in-out">
+                        className="py-1 px-5 bg-[#112D4E] rounded-md text-white font-bold hover:bg-[#FDD36A] hover:text-[#112D4E] transition duration-600 ease-in-out">
                           Disconnect
                       </button>
                     </div>
