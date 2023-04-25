@@ -6,9 +6,12 @@ import Image from "next/image";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ConnectButton from "./components/ConnectButton";
+//mint buttons
+import Mint01 from "./components/Game01/Mint01";
+import Mint02 from "./components/Game01/Mint02";
 
 //Wagmi
-import { useSignMessage } from "wagmi";
+//import { useSignMessage } from "wagmi";
 import { useAccount } from "wagmi";
 import { useNetwork, useSwitchNetwork } from 'wagmi'
 
@@ -16,6 +19,7 @@ const MintGame01 = () => {
     //Wagmi
     //Sign message
     //https://wagmi.sh/react/hooks/useSignMessage
+    /*
     const [message, setMessage] = React.useState("")
 
     const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({
@@ -44,10 +48,11 @@ const MintGame01 = () => {
         setMessage("Are you sure to purchase [NFT-NAME] NFT-TYPE ?");
         signMessage()
     }
+    */
 
     //Wagmi
     //Check Connected?
-    const { isConnected } = useAccount();
+    const { address, isConnected } = useAccount();
     const { chain } = useNetwork();
     const { chains } = useSwitchNetwork();
 
@@ -81,15 +86,7 @@ const MintGame01 = () => {
         //
         fetchImages();
     }, []);
-
-    const Mint01 = () => {
-        console.log("Mint 01");
-    }
-
-    const Mint02 = () => {
-        console.log("Mint 02");
-    }
-
+    
     return( 
         <>
             <div className="flex flex-col h-screen justify-between">
@@ -118,13 +115,8 @@ const MintGame01 = () => {
                                             <div key={x.id}>
                                                 {x.id !== chain?.id && <ConnectButton />}
 
-                                                {x.id === chain?.id &&
-                                                    <button 
-                                                        onClick={index === 0 ? Mint01 : Mint02}
-                                                        type="button" className="font-bold py-3 px-8 rounded-2xl bg-[#112D4E] text-[#F9F7F7] hover:bg-[#FDD36A] hover:text-[#112D4E] transition-colors duration-300">
-                                                            Mint
-                                                    </button>
-                                                }
+                                                {x.id === chain?.id && index===0 && <Mint01 />}
+                                                {x.id === chain?.id && index===1 && <Mint02 />}
                                             </div>
                                         ))}
 
@@ -140,5 +132,7 @@ const MintGame01 = () => {
         </>
     )
 }
+
+
 
 export default MintGame01;

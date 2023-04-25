@@ -1,3 +1,5 @@
+require('hardhat-abi-exporter');
+
 //https://docs.bnbchain.org/docs/hardhat-new/
 require("@nomicfoundation/hardhat-toolbox");
 

@@ -26,6 +26,7 @@
     "wagmi": "^0.12.10"
   },
   "devDependencies": {
-    "hardhat": "^2.14.0"
+    "hardhat": "^2.14.0",
+    "hardhat-abi-exporter": "^2.10.1"
   }
 }
