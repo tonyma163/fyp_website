@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-//https://www.npmjs.com/package/@openzeppelin/contracts
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -15,13 +14,11 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
     uint256 public constant PRICE = 0.01 ether;
     uint256 public constant MAX_SUPPLY = 20;
 
-    // tokenURI for the different types of tokens
     string private constant BASE_URI_0 = "https://cloudflare-ipfs.com/ipfs/QmeA9xHhanwo5xBv72XczoxaCfjN4ZqqCabFm4ayHNfjVN";
     string private constant BASE_URI_1 = "https://cloudflare-ipfs.com/ipfs/QmcM3VfQfBSNmUZrvMNTbMtFzpwY44tb7xy58t3z3YeCHu";
 
     constructor() ERC721("Game01", "G01") {}
 
-    //event
     event TokenMinted(uint256 tokenId);
 
     function safeMint(address to, uint256 tokenURIType) public payable onlyOwner {
@@ -30,11 +27,10 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
         require(_tokenIdCounter.current() < MAX_SUPPLY, "Maximum supply reached");
 
         uint256 tokenId = _tokenIdCounter.current();
-        emit TokenMinted(tokenId); // Emit the event
+        emit TokenMinted(tokenId);
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
 
-        // Set tokenURI based on tokenURIType
         _setTokenURI(tokenId, _tokenURIForType(tokenURIType));
     }
 
@@ -42,13 +38,11 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
         return (tokenURIType == 0) ? BASE_URI_0 : BASE_URI_1;
     }
 
-    // Only owner is able to withdraw the contract balance
     function withdraw() public onlyOwner {
         uint256 balance = address(this).balance;
         payable(owner()).transfer(balance);
     }
 
-    // The following functions are overrides required by Solidity.
     function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
         super._burn(tokenId);
     }
@@ -62,7 +56,6 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
         return super.tokenURI(tokenId);
     }
 
-    //utils
     function uintToString(uint256 value) private pure returns (string memory) {
         if (value == 0) {
             return "0";
@@ -81,5 +74,9 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
         }
         return string(buffer);
     }
-    
+
+    // Add totalSupply function to track minted NFTs
+    function totalSupply() public view returns (uint256) {
+        return _tokenIdCounter.current();
+    }
 }
