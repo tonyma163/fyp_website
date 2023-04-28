@@ -1,3 +1,4 @@
+//react
 import { useState, useEffect } from "react";
 
 //components
@@ -6,7 +7,7 @@ import Footer from "./components/Footer";
 import ConnectButton from "./components/ConnectButton";
 import NFTCard from "./components/NFTCard";
 
-//Wagmi
+//wagmi
 import { useAccount} from "wagmi";
 import { useProvider } from "wagmi";
 import { useContract } from 'wagmi'

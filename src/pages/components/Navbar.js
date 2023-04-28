@@ -1,7 +1,8 @@
-//import
-import Link from "next/link";
-
+//react
 import { useState } from "react";
+
+//next
+import Link from "next/link";
 
 //components
 import ConnectButton from "./ConnectButton";

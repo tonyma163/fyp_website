@@ -1,5 +1,8 @@
+//react
 import * as React from "react";
 import { useState, useEffect } from "react";
+
+//next
 import Image from "next/image";
 
 //components
@@ -10,7 +13,7 @@ import ConnectButton from "./components/ConnectButton";
 //mint buttons
 import CharacterMint from "./components/Game01/CharacterMint";
 
-//Wagmi
+//wagmi
 //import { useSignMessage } from "wagmi";
 import { useAccount } from "wagmi";
 import { useNetwork, useSwitchNetwork } from 'wagmi'

@@ -1,10 +1,10 @@
-//
+//react
 import { useEffect } from "react";
 
-//
+//etherjs
 import { ethers } from "ethers";
 
-//import { useContract } from 'wagmi'
+//wagmi
 //https://wagmi.sh/react/hooks/useContractWrite
 //https://wagmi.sh/examples/contract-write-dynamic
 import { useContractWrite, usePrepareContractWrite } from 'wagmi'

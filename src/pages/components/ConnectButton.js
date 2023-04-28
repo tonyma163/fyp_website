@@ -1,9 +1,13 @@
+//react
 import { useState, useEffect } from "react";
+
+//next
 import Link from "next/link";
 
-//Web3Modal
+//web3modal
 import { useWeb3Modal } from "@web3modal/react";
-//Wagmi
+
+//wagmi
 import { useAccount, useDisconnect } from "wagmi";
 import { useNetwork, useSwitchNetwork } from 'wagmi'
 
