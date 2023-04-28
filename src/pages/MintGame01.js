@@ -6,9 +6,9 @@ import Image from "next/image";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ConnectButton from "./components/ConnectButton";
+
 //mint buttons
-import Mint01 from "./components/Game01/Mint01";
-import Mint02 from "./components/Game01/Mint02";
+import CharacterMint from "./components/Game01/CharacterMint";
 
 //Wagmi
 //import { useSignMessage } from "wagmi";
@@ -115,8 +115,8 @@ const MintGame01 = () => {
                                             <div key={x.id}>
                                                 {x.id !== chain?.id && <ConnectButton />}
 
-                                                {x.id === chain?.id && index===0 && <Mint01 />}
-                                                {x.id === chain?.id && index===1 && <Mint02 />}
+                                                {x.id === chain?.id && index===0 && <CharacterMint tokenType = "0" />}
+                                                {x.id === chain?.id && index===1 && <CharacterMint tokenType = "1" />}
                                             </div>
                                         ))}
 
