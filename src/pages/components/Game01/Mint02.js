@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+
+//
 import { ethers } from "ethers";
 
 //import { useContract } from 'wagmi'
@@ -9,13 +12,17 @@ import { useAccount } from "wagmi";
 //Contract ABI
 import Game01_ABI from "./abi/Game01.json";
 
-const Mint01 = () => {
+const Mint02 = () => {
     // Get the connected user's account address
     const { address } = useAccount();
 
+    useEffect(() => {
+
+    }, [address]);
+
     // Prepare the contract write configuration
     const { config } = usePrepareContractWrite({
-      address: "0xD104e99f66D43a43406eD2C81FB20Bf37d89737E",
+      address: "0x6b9d7a48611ad4903F719f6Cacd570756a1060bA",
       abi: Game01_ABI,
       functionName: "safeMint",
       args: [address, 1],
@@ -48,4 +55,4 @@ const Mint01 = () => {
     );
   };
 
-export default Mint01;
+export default Mint02;

@@ -21,10 +21,10 @@ const Wallet = () => {
   const provider = useProvider();
   //nft contract
   const nftContract = useContract({
-    address: '0xD104e99f66D43a43406eD2C81FB20Bf37d89737E',
+    address: '0x6b9d7a48611ad4903F719f6Cacd570756a1060bA',
     abi: Game01_ABI,
     signerOrProvider: provider,
-  })
+  });
 
   //userNFTs
   const [nfts, setNFTs] = useState([]);

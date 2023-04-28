@@ -21,7 +21,7 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
 
     event TokenMinted(uint256 tokenId);
 
-    function safeMint(address to, uint256 tokenURIType) public payable onlyOwner {
+    function safeMint(address to, uint256 tokenURIType) public payable {
         require(msg.value == PRICE, "Incorrect Ether value sent");
         require(tokenURIType == 0 || tokenURIType == 1, "Invalid tokenURI type");
         require(_tokenIdCounter.current() < MAX_SUPPLY, "Maximum supply reached");
