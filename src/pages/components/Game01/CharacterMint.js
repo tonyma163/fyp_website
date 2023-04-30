@@ -19,12 +19,12 @@ const CharacterMint = (props) => {
     const { address } = useAccount();
 
     useEffect(() => {
-
+        
     }, [address]);
 
     // Prepare the contract write configuration
     const { config } = usePrepareContractWrite({
-      address: "0x6b9d7a48611ad4903F719f6Cacd570756a1060bA",
+      address: "0x431D8910C17f8F9291d0A226d771074fe4c84844",
       abi: Game01_ABI,
       functionName: "safeMint",
       args: [address, props.tokenType],
@@ -33,6 +33,8 @@ const CharacterMint = (props) => {
         value: ethers.utils.parseEther("0.01"),
       },
     });
+
+    //ownsNFTType
   
     // Use the contract write hook with the prepared configuration
     const { data, isLoading, isSuccess, write: mintNFT } = useContractWrite(config);

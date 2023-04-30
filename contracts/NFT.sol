@@ -17,6 +17,8 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
     string private constant BASE_URI_0 = "https://cloudflare-ipfs.com/ipfs/QmeA9xHhanwo5xBv72XczoxaCfjN4ZqqCabFm4ayHNfjVN";
     string private constant BASE_URI_1 = "https://cloudflare-ipfs.com/ipfs/QmcM3VfQfBSNmUZrvMNTbMtFzpwY44tb7xy58t3z3YeCHu";
 
+    mapping(address => mapping(uint256 => bool)) private _userTokenTypes;
+
     constructor() ERC721("Game01", "G01") {}
 
     event TokenMinted(uint256 tokenId);
@@ -25,6 +27,7 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
         require(msg.value == PRICE, "Incorrect Ether value sent");
         require(tokenURIType == 0 || tokenURIType == 1, "Invalid tokenURI type");
         require(_tokenIdCounter.current() < MAX_SUPPLY, "Maximum supply reached");
+        require(!_userTokenTypes[to][tokenURIType], "User already owns this NFT type");
 
         uint256 tokenId = _tokenIdCounter.current();
         emit TokenMinted(tokenId);
@@ -32,6 +35,7 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
         _safeMint(to, tokenId);
 
         _setTokenURI(tokenId, _tokenURIForType(tokenURIType));
+        _userTokenTypes[to][tokenURIType] = true;
     }
 
     function _tokenURIForType(uint256 tokenURIType) internal pure returns (string memory) {
@@ -79,4 +83,10 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
     function totalSupply() public view returns (uint256) {
         return _tokenIdCounter.current();
     }
+
+    // Check if a user owns a specific NFT type
+    function ownsNFTType(address user, uint256 tokenURIType) public view returns (bool) {
+        return _userTokenTypes[user][tokenURIType];
+    }
+    
 }
