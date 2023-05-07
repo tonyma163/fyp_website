@@ -14,6 +14,7 @@ import { useContract } from 'wagmi'
 
 //Contract ABI
 import Game01_ABI from "./components/Game01/abi/Game01.json";
+import Game01Contract from "./components/Game01/abi/Game01Contract.json";
 
 const Wallet = () => {
 
@@ -65,8 +66,14 @@ const Wallet = () => {
         if (owner === address) {
           count--;
           const tokenURI = await nftContract.tokenURI(i);
+
+          //grab the time
+          const timeStamp = await fetchTime(i);
+          //var modifiedTimeStamp = BigInt(timeStamp).toString();
+
           userNFTs.push({
             tokenId: i,
+            timeStamp: BigInt(timeStamp).toString(),
             tokenURI: tokenURI,
           });
         }
@@ -75,6 +82,21 @@ const Wallet = () => {
 
     setNFTs(userNFTs);
     setFetchingNFTs(false);
+  }
+
+  //game contract
+  const gameContract = useContract({
+    address: '0xD609c1E856edaB8C36C33762dD487752Ebab2c46',
+    abi: Game01Contract,
+    signerOrProvider: provider,
+  });
+  async function fetchTime(tokenId) {
+
+    const time = await gameContract.getTimestamp(tokenId);
+
+    console.log("TIMESTAMP: "+time);
+
+    return time;
   }
 
   return (
