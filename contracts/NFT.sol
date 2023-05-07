@@ -19,6 +19,8 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
 
     mapping(address => mapping(uint256 => bool)) private _userTokenTypes;
 
+    mapping(address => mapping(uint256 => uint256)) private _userTokenTypeToTokenId;
+
     constructor() ERC721("Game01", "G01") {}
 
     event TokenMinted(uint256 tokenId);
@@ -36,6 +38,7 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
 
         _setTokenURI(tokenId, _tokenURIForType(tokenURIType));
         _userTokenTypes[to][tokenURIType] = true;
+        _userTokenTypeToTokenId[to][tokenURIType] = tokenId; // Store the tokenId in the reverse mapping
     }
 
     function _tokenURIForType(uint256 tokenURIType) internal pure returns (string memory) {
@@ -87,6 +90,11 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
     // Check if a user owns a specific NFT type
     function ownsNFTType(address user, uint256 tokenURIType) public view returns (bool) {
         return _userTokenTypes[user][tokenURIType];
+    }
+
+    function getTokenIdByType(address owner, uint256 tokenURIType) public view returns (uint256) {
+        require(ownsNFTType(owner, tokenURIType), "User does not own this NFT type");
+        return _userTokenTypeToTokenId[owner][tokenURIType];
     }
     
 }
