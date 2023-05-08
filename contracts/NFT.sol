@@ -14,8 +14,6 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
     uint256 public constant PRICE = 0.01 ether;
     uint256 public constant MAX_SUPPLY = 20;
 
-    //string private constant BASE_URI_0 = "https://cloudflare-ipfs.com/ipfs/QmeA9xHhanwo5xBv72XczoxaCfjN4ZqqCabFm4ayHNfjVN";
-    //string private constant BASE_URI_1 = "https://cloudflare-ipfs.com/ipfs/QmcM3VfQfBSNmUZrvMNTbMtFzpwY44tb7xy58t3z3YeCHu";
     string private constant BASE_URI_0 = "https://cloudflare-ipfs.com/ipfs/QmXuAZZaNRegt94raZGLfvjt1hQH5D68EMn2n2rRKSpzmT";
     string private constant BASE_URI_1 = "https://cloudflare-ipfs.com/ipfs/QmWUSiZPZa9oAVw9U4ke6xcw2msCiCMYGxb766u6hu3Fhr";
 
@@ -98,5 +96,27 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
         require(ownsNFTType(owner, tokenURIType), "User does not own this NFT type");
         return _userTokenTypeToTokenId[owner][tokenURIType];
     }
-    
+
+    //
+    event NFTTransferred(address indexed from, address indexed to, uint256 indexed tokenId);
+    //
+    function onNFTTransfer(address from, address to, uint256 tokenId) internal {
+    if (from != address(0)) {
+        uint256 tokenURIType = (keccak256(abi.encodePacked(tokenURI(tokenId))) == keccak256(abi.encodePacked(BASE_URI_0))) ? 0 : 1;
+        _userTokenTypes[from][tokenURIType] = false;
+        _userTokenTypeToTokenId[from][tokenURIType] = 0;
+    }
+
+    if (to != address(0)) {
+        uint256 tokenURIType = (keccak256(abi.encodePacked(tokenURI(tokenId))) == keccak256(abi.encodePacked(BASE_URI_0))) ? 0 : 1;
+        _userTokenTypes[to][tokenURIType] = true;
+        _userTokenTypeToTokenId[to][tokenURIType] = tokenId;
+    }
+    }
+    // Override the original safeTransferFrom
+    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public override {
+        super.safeTransferFrom(from, to, tokenId, data);
+        onNFTTransfer(from, to, tokenId);
+    }
+
 }

@@ -29,7 +29,7 @@ const NFTCard = ({ nft, onTransfer }) => {
 
   // Prepare the contract write configuration
   const { config } = usePrepareContractWrite({
-    address: "0x22a7F29f556d9DdceD7816936c33a501935622d2",
+    address: "0x1f164f925B49C866087090Bd288757E0fb19EB42",
     abi: Game01_ABI,
     functionName: "safeTransferFrom",
     args: [nft.owner, transferAddress, nft.tokenId],
@@ -53,7 +53,7 @@ const NFTCard = ({ nft, onTransfer }) => {
         <div className="p-4">
           <p className="text-sm text-gray-500">Token ID: {nft.tokenId}</p>
           <p className="text-sm text-gray-500">
-            Pass Record: {nft.timeStamp === "-1" || nft.timeStamp === -1 ? "NOT PASS" : `${nft.timeStamp} secs`}
+            Pass Record: {nft.timeStamp === "-1" ? "NOT PASS" : `${nft.timeStamp} secs`}
           </p>
           <button
             onClick={openTransfer}
