@@ -14,8 +14,10 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
     uint256 public constant PRICE = 0.01 ether;
     uint256 public constant MAX_SUPPLY = 20;
 
-    string private constant BASE_URI_0 = "https://cloudflare-ipfs.com/ipfs/QmeA9xHhanwo5xBv72XczoxaCfjN4ZqqCabFm4ayHNfjVN";
-    string private constant BASE_URI_1 = "https://cloudflare-ipfs.com/ipfs/QmcM3VfQfBSNmUZrvMNTbMtFzpwY44tb7xy58t3z3YeCHu";
+    //string private constant BASE_URI_0 = "https://cloudflare-ipfs.com/ipfs/QmeA9xHhanwo5xBv72XczoxaCfjN4ZqqCabFm4ayHNfjVN";
+    //string private constant BASE_URI_1 = "https://cloudflare-ipfs.com/ipfs/QmcM3VfQfBSNmUZrvMNTbMtFzpwY44tb7xy58t3z3YeCHu";
+    string private constant BASE_URI_0 = "https://cloudflare-ipfs.com/ipfs/QmXuAZZaNRegt94raZGLfvjt1hQH5D68EMn2n2rRKSpzmT";
+    string private constant BASE_URI_1 = "https://cloudflare-ipfs.com/ipfs/QmWUSiZPZa9oAVw9U4ke6xcw2msCiCMYGxb766u6hu3Fhr";
 
     mapping(address => mapping(uint256 => bool)) private _userTokenTypes;
 

@@ -23,7 +23,7 @@ const Wallet = () => {
   const provider = useProvider();
   //nft contract
   const nftContract = useContract({
-    address: '0x7e471e471b829E21d106826dED63B875a0170D4E',
+    address: '0x22a7F29f556d9DdceD7816936c33a501935622d2',
     abi: Game01_ABI,
     signerOrProvider: provider,
   });
@@ -69,11 +69,11 @@ const Wallet = () => {
 
           //grab the time
           const timeStamp = await fetchTime(i);
-          //var modifiedTimeStamp = BigInt(timeStamp).toString();
 
           userNFTs.push({
             tokenId: i,
-            timeStamp: BigInt(timeStamp).toString(),
+            //timeStamp: BigInt(timeStamp).toString(),
+            timeStamp: timeStamp,
             tokenURI: tokenURI,
             owner: owner,
           });
@@ -92,12 +92,16 @@ const Wallet = () => {
     signerOrProvider: provider,
   });
   async function fetchTime(tokenId) {
+    var time = -1;
+    
+    try{
+      time = await gameContract.getTimestamp(tokenId);
+      //console.log("TIMESTAMP: "+time);
+    } catch (err) {
+      console.log(err);
+    }
 
-    const time = await gameContract.getTimestamp(tokenId);
-
-    console.log("TIMESTAMP: "+time);
-
-    return time;
+    return BigInt(time).toString();
   }
 
 

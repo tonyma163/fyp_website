@@ -112,7 +112,6 @@ const MintGame01 = () => {
                             />
 
                             <div className="py-3 text-center">
-                                <h1 className="text-[#112D4E] text-3xl font-bold">Type1</h1>
                                     <div className="pt-3 flex justify-around">
 
                                         {!isConnected && <ConnectButton />}
@@ -120,8 +119,20 @@ const MintGame01 = () => {
                                             <div key={x.id}>
                                                 {x.id !== chain?.id && <ConnectButton />}
 
-                                                {x.id === chain?.id && index===0 && <CharacterMint tokenType = "0" />}
-                                                {x.id === chain?.id && index===1 && <CharacterMint tokenType = "1" />}
+                                                {x.id === chain?.id && index===0 && (
+                                                    <>
+                                                    <h1 className="text-[#112D4E] text-3xl font-bold pb-5">Type1</h1>
+                                                    <CharacterMint tokenType = "0" />
+                                                    </>
+                                                )
+                                                }
+
+                                                {x.id === chain?.id && index===1 && (
+                                                    <>
+                                                    <h1 className="text-[#112D4E] text-3xl font-bold pb-5">Type2</h1>
+                                                    <CharacterMint tokenType = "1" />
+                                                    </>
+                                                )}
                                             </div>
                                         ))}
 

@@ -22,7 +22,7 @@ const Mint02 = () => {
 
     // Prepare the contract write configuration
     const { config } = usePrepareContractWrite({
-      address: "0x7e471e471b829E21d106826dED63B875a0170D4E",
+      address: "0x22a7F29f556d9DdceD7816936c33a501935622d2",
       abi: Game01_ABI,
       functionName: "safeMint",
       args: [address, 1],
