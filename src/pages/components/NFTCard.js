@@ -1,5 +1,5 @@
 //react
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 
 //etherjs
 import { ethers } from "ethers";
@@ -13,7 +13,7 @@ import { useAccount } from "wagmi";
 //Contract ABI
 import Game01_ABI from "./Game01/abi/Game01.json";
 
-const NFTCard = ({ nft }) => {
+const NFTCard = ({ nft, onTransfer }) => {
   const [showTransferModal, setShowTransferModal] = useState(false);
   const [transferAddress, setTransferAddress] = useState("");
 
@@ -27,14 +27,6 @@ const NFTCard = ({ nft }) => {
     setShowTransferModal(false);
   }
 
-  /*
-  function handleTransfer() {
-    console.log("Transfer to:", transferAddress);
-    // Implement your transfer logic here
-    closeTransfer();
-  }
-  */
-
   // Prepare the contract write configuration
   const { config } = usePrepareContractWrite({
     address: "0x7e471e471b829E21d106826dED63B875a0170D4E",
@@ -46,6 +38,13 @@ const NFTCard = ({ nft }) => {
   });
   // Use the contract write hook with the prepared configuration
   const { data, isLoading, isSuccess, write: transferNFT } = useContractWrite(config);
+
+  useEffect(() => {
+    if (isSuccess) {
+      onTransfer(nft.tokenId);
+      closeTransfer();
+    }
+  }, [isSuccess, onTransfer, nft.tokenId]);
 
   return (
     <>

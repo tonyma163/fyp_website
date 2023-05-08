@@ -100,6 +100,12 @@ const Wallet = () => {
     return time;
   }
 
+
+  //
+  const handleNftTransfer = (tokenId) => {
+    setNFTs(nfts.filter((nft) => nft.tokenId !== tokenId));
+  };
+  
   return (
     <>
     <Navbar />
@@ -131,7 +137,7 @@ const Wallet = () => {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {nfts.map((nft) => (
-                <NFTCard key={nft.tokenId} nft={nft} />
+                <NFTCard key={nft.tokenId} nft={nft} onTransfer={handleNftTransfer} />
               ))}
             </div>
           </div>
