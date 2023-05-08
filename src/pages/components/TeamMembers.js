@@ -5,27 +5,27 @@ const teamMembers = [
     {
       name: 'Tony',
       position: 'Student',
-      imageUrl: '/images/oldbro.jpg',
+      imageUrl: '/images/youngbro.jpg',
     },
     {
       name: 'William',
       position: 'Student',
-      imageUrl: '/images/oldbro.jpg',
+      imageUrl: '/images/youngbro.jpg',
     },
     {
       name: 'Jeffrey',
       position: 'Student',
-      imageUrl: '/images/oldbro.jpg',
+      imageUrl: '/images/youngbro.jpg',
     },
     {
       name: 'Thomas',
       position: 'Student',
-      imageUrl: '/images/oldbro.jpg',
+      imageUrl: '/images/youngbro.jpg',
     },
     {
       name: 'PJ',
       position: 'Student',
-      imageUrl: '/images/oldbro.jpg',
+      imageUrl: '/images/youngbro.jpg',
     },
   ];
 

@@ -64,8 +64,10 @@ const MintGame01 = () => {
     const [images, setImages] = useState([]);
 
     //ipfs images
-    const imageType1CID = "QmeA9xHhanwo5xBv72XczoxaCfjN4ZqqCabFm4ayHNfjVN";
-    const imageType2CID = "QmcM3VfQfBSNmUZrvMNTbMtFzpwY44tb7xy58t3z3YeCHu";
+    //const imageType1CID = "QmeA9xHhanwo5xBv72XczoxaCfjN4ZqqCabFm4ayHNfjVN";
+    //const imageType2CID = "QmcM3VfQfBSNmUZrvMNTbMtFzpwY44tb7xy58t3z3YeCHu";
+    const imageType1CID = "QmXuAZZaNRegt94raZGLfvjt1hQH5D68EMn2n2rRKSpzmT";
+    const imageType2CID = "QmWUSiZPZa9oAVw9U4ke6xcw2msCiCMYGxb766u6hu3Fhr";
 
     const imageCIDs = [
         imageType1CID,
