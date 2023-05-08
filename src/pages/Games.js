@@ -26,9 +26,6 @@ const Games = () => {
                         <h1 className="text-[#112D4E] text-3xl font-bold">Seeker</h1>
                         
                         <div className="pt-3 flex justify-around">
-                        <button type="button" className="font-bold py-3 px-2 rounded-2xl bg-[#112D4E] text-[#F9F7F7] hover:bg-[#FDD36A] hover:text-[#112D4E] transition-colors duration-300">
-                            Download
-                        </button>
                         
                         <button type="button" className="font-bold py-3 px-8 rounded-2xl bg-[#112D4E] text-[#F9F7F7] hover:bg-[#FDD36A] hover:text-[#112D4E] transition-colors duration-300">
                             <Link href="/MintGame01">
