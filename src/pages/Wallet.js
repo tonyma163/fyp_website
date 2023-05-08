@@ -75,6 +75,7 @@ const Wallet = () => {
             tokenId: i,
             timeStamp: BigInt(timeStamp).toString(),
             tokenURI: tokenURI,
+            owner: owner,
           });
         }
       }
