@@ -16,7 +16,7 @@ const Games = () => {
             <div className="pt-10 flex justify-center">
                 <div className="bg-[#DBE2EF] max-w-sm shadow-lg rounded-3xl overflow-hidden">
                     <Image
-                      src="/images/Cave_preview.png"
+                      src="/images/Game01Logo.png"
                       width={960}
                       height={540}
 

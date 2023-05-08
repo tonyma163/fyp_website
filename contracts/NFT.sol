@@ -11,7 +11,7 @@ contract Game01 is ERC721, ERC721URIStorage, Ownable {
 
     Counters.Counter private _tokenIdCounter;
 
-    uint256 public constant PRICE = 0.01 ether;
+    uint256 public constant PRICE = 0.005 ether;
     uint256 public constant MAX_SUPPLY = 20;
 
     string private constant BASE_URI_0 = "https://cloudflare-ipfs.com/ipfs/QmXuAZZaNRegt94raZGLfvjt1hQH5D68EMn2n2rRKSpzmT";
